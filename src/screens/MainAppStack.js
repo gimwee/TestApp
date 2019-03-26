@@ -1,30 +1,43 @@
-import { Navigation } from 'react-native-navigation';
-import { OnBoardingStackDefaultOptions } from './OnBoardingStack';
-import {
-  textColour,
-  backgroundColour,
-  redColour,
-  veryLightGreyColour,
-  bottomTabsBackgroundColor,
-} from '../styles/colours';
 
-const MAIN_APP_TOPBAR_TITLE_LIST = ['Nearby', 'Chat', 'Profile'];
-const MAIN_APP_BOTTOM_TAB_TITLE_LIST = ['NEARBY', 'CHAT', 'PROFILE'];
-const NEARBY_ICON_IDLE = require('../assets/images/nearby/nearbyTabIconIdle.png');
-const NEARBY_ICON_ACTIVE = require('../assets/images/nearby/nearbyTabIconActive.png');
-const CHAT_ICON_IDLE = require('../assets/images/chat/chatTabIconIdle.png');
-const CHAT_ICON_ACTIVE = require('../assets/images/chat/chatTabIconActive.png');
-const PROFILE_ICON_IDLE = require('../assets/images/profile/profileTabIconIdle.png');
-const PROFILE_ICON_ACTIVE = require('../assets/images/profile/profileTabIconActive.png');
-
-const goMainApp = () => {
-  // XXX think about what's the default MainAppStackOptions
-  // Navigation.setDefaultOptions({
-  //   OnBoardingStackDefaultOptions,
-  // });
-  Navigation.setRoot({
-    root: MainAppStack,
-  });
+const tabOptions1 = {
+  bottomTab: {
+    textColor: 'red',
+    selectedTextColor: 'red',
+    fontFamily: 'Helvetica',
+    fontSize: 10,
+    selectedIconColor: 'red',
+    icon: require('../assets/images/tab_icon_map.png'),
+  },
+};
+const tabOptions2 = {
+  bottomTab: {
+    textColor: 'red',
+    selectedTextColor: 'red',
+    fontFamily: 'Helvetica',
+    fontSize: 10,
+    selectedIconColor: 'red',
+    icon: require('../assets/images/tab_icon_list.png'),
+  },
+};
+const tabOptions3 = {
+  bottomTab: {
+    textColor: 'red',
+    selectedTextColor: 'red',
+    fontFamily: 'Helvetica',
+    fontSize: 10,
+    selectedIconColor: 'red',
+    icon: require('../assets/images/tab_icon_favourites.png'),
+  },
+};
+const tabOptions4 = {
+  bottomTab: {
+    textColor: 'red',
+    selectedTextColor: 'red',
+    fontFamily: 'Helvetica',
+    fontSize: 10,
+    selectedIconColor: 'red',
+    icon: require('../assets/images/tab_icon_wallet.png'),
+  },
 };
 
 const tabScreenOptions = (text) => ({
@@ -33,96 +46,43 @@ const tabScreenOptions = (text) => ({
     orientation: ['portrait'], // An array of supported orientations
   },
   topBar: {
-    largeTitle: {
-      text,
-      visible: true,
-      fontSize: 30,
-      color: textColour,
-      fontFamily: 'RobotoSlab-Bold',
-      // background: {
-      //   color: bottomTabsBackgroundColor,
-      // },
-    },
-    buttonColor: redColour,
-    backButton: {
-      fontFamily: 'RobotoSlab-Bold',
-      color: redColour,
-    },
+
+    buttonColor: 'red',
+    leftButtons: [
+      {
+        id: 'profile',
+        icon: require('../assets/images/icon_profile.png'),
+      }
+    ],
+    rightButtons: [
+      {
+        id: 'profile',
+        icon: require('../assets/images/icon_filter.png'),
+      }
+    ],
     visible: true,
     drawBehind: false,
     animate: true,
-    // transparent: true,
-    // translucent: true,
-    // hideOnScroll: false,
-    noBorder: false,
-    elevation: 0,
-    background: {
-      // color: bottomTabsBackgroundColor,
-      transparent: true,
-      color: 'transparent',
-      // blur: true,
-    },
+    elevation: 2,
+
     title: {
       text,
       fontFamily: 'RobotoSlab-Bold',
-      color: textColour,
+      color: 'red',
       fontSize: 16,
     },
   },
 });
 
-const bottomTabsOptions = {
-  // when background to blur use transparent color
-  // backgroundColor: 'transparent',
-  // backgroundColor: bottomTabsBackgroundColor,
-  // tabsAttachMode?: 'together' | 'afterInitialTab' | 'onSwitchToTab';
-  tabsAttachMode: 'onSwitchToTab',
-  translucent: true,
-  transparent: true,
-  drawBehind: true,
-  background: {
-    color: 'transparent',
-    // color: bottomTabsBackgroundColor,
-    blur: true,
-    transparent: true,
+const componentOptions1 = {
+  topBar: {
+    title: {
+      text: 'Main',
+    },
   },
-  // barStyle: 'black',
 };
 
-const bottomTabOptions = (text, icon, selectedIcon) => ({
-  bottomTab: {
-    text,
-    icon,
-    selectedIcon,
-    fontFamily: 'Roboto-Medium',
-    fontSize: 11,
-    textColor: textColour,
-    selectedTextColor: redColour,
-    selectedFontFamily: 'Roboto-Bold',
-    selectedFontSize: 11,
-  },
-});
-
-const nearbyBottomTabOptions = bottomTabOptions(
-  'NEARBY',
-  NEARBY_ICON_IDLE,
-  NEARBY_ICON_ACTIVE,
-);
-
-const chatBottomTabOptions = bottomTabOptions(
-  'CHAT',
-  CHAT_ICON_IDLE,
-  CHAT_ICON_ACTIVE,
-);
-
-const profileBottomTabOptions = bottomTabOptions(
-  'PROFILE',
-  PROFILE_ICON_IDLE,
-  PROFILE_ICON_ACTIVE,
-);
-
-// TODO refactor this into a map fn
-const MainAppStack = {
+export const MainAppStack = {
   bottomTabs: {
     id: 'MainAppStack',
     children: [
@@ -131,12 +91,12 @@ const MainAppStack = {
           children: [
             {
               component: {
-                name: 'NearbyScreen',
-                options: tabScreenOptions('Nearby'),
+                name: 'MainScreen',
+                options: tabScreenOptions('EatClub'),
               },
             },
           ],
-          options: nearbyBottomTabOptions,
+          options: tabOptions1,
         },
       },
       {
@@ -144,12 +104,12 @@ const MainAppStack = {
           children: [
             {
               component: {
-                name: 'ChatScreen',
-                options: tabScreenOptions('Chat'),
+                name: 'MainScreen',
+                options: componentOptions1,
               },
             },
           ],
-          options: chatBottomTabOptions,
+          options: tabOptions2,
         },
       },
       {
@@ -157,20 +117,27 @@ const MainAppStack = {
           children: [
             {
               component: {
-                name: 'ProfileScreen',
-                // FIXME
-                options: tabScreenOptions('Profile'),
+                name: 'MainScreen',
+                options: componentOptions1,
               },
             },
           ],
-          options: profileBottomTabOptions,
+          options: tabOptions3,
+        },
+      },
+      {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'MainScreen',
+                options: componentOptions1,
+              },
+            },
+          ],
+          options: tabOptions4,
         },
       },
     ],
-    options: {
-      bottomTabs: bottomTabsOptions,
-    },
   },
 };
-
-export default goMainApp;
